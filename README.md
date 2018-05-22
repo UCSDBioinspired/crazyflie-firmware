@@ -111,6 +111,12 @@ CLOAD=0
 More information can be found on the 
 [Bitcraze wiki](http://wiki.bitcraze.se/projects:crazyflie2:index)
 
+## Wireless flashing 
+If the crazyflie-clients-python is placed on the same directory level and the Crazyradio/Crazyradio PA is inserted it will try to flash the firmware using the wireless bootloader.
+```
+make cload
+```
+
 ## Folder description:
 ```
 ./              | Root, contains the Makefile
