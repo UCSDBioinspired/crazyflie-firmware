@@ -73,23 +73,50 @@ void powerStop()
 
 void powerDistribution(const control_t *control)
 {
-  #ifdef QUAD_FORMATION_X
-    int16_t r = control->roll / 2.0f;
-    int16_t p = control->pitch / 2.0f;
-    motorPower.m1 = limitThrust(control->thrust - r + p + control->yaw);
-    motorPower.m2 = limitThrust(control->thrust - r - p - control->yaw);
-    motorPower.m3 =  limitThrust(control->thrust + r - p + control->yaw);
-    motorPower.m4 =  limitThrust(control->thrust + r + p - control->yaw);
-  #else // QUAD_FORMATION_NORMAL
-    motorPower.m1 = limitThrust(control->thrust + control->pitch +
-                               control->yaw);
-    motorPower.m2 = limitThrust(control->thrust - control->roll -
-                               control->yaw);
-    motorPower.m3 =  limitThrust(control->thrust - control->pitch +
-                               control->yaw);
-    motorPower.m4 =  limitThrust(control->thrust + control->roll -
-                               control->yaw);
-  #endif
+  // // #ifdef QUAD_FORMATION_X
+  //   motorPower.m1 = limitThrust(control->thrust_right);
+  //   // motorPower.m1 = limitThrust(20000);
+  //   motorPower.m2 = limitThrust(0);
+  //   motorPower.m3 =  limitThrust(0);
+  //   motorPower.m4 =  limitThrust(control->thrust_left);
+  //   // motorPower.m4 =  limitThrust(20000);
+  // // #else // QUAD_FORMATION_NORMAL
+  // //   motorPower.m1 = limitThrust(control->thrust_right);
+  // //   motorPower.m2 = limitThrust(0);
+  // //   motorPower.m3 =  limitThrust(0);
+  // //   motorPower.m4 =  limitThrust(control->thrust_left);
+  // // #endif
+
+  // if (motorSetEnable)
+  // {
+  //   motorsSetRatio(MOTOR_M1, motorPowerSet.m1);
+  //   motorsSetRatio(MOTOR_M2, motorPowerSet.m2);
+  //   motorsSetRatio(MOTOR_M3, motorPowerSet.m3);
+  //   motorsSetRatio(MOTOR_M4, motorPowerSet.m4);
+  // }
+  // else
+  // {
+  //   motorsSetRatio(MOTOR_M1, motorPower.m1);
+  //   motorsSetRatio(MOTOR_M2, motorPower.m2);
+  //   motorsSetRatio(MOTOR_M3, motorPower.m3);
+  //   motorsSetRatio(MOTOR_M4, motorPower.m4);
+  // }
+}
+void powerDistributionSetpoint(const setpoint_t *setpoint)
+{
+  // #ifdef QUAD_FORMATION_X
+    motorPower.m1 = limitThrust(setpoint->thrust_right);
+    // motorPower.m1 = limitThrust(20000);
+    motorPower.m2 = limitThrust(0);
+    motorPower.m3 =  limitThrust(0);
+    motorPower.m4 =  limitThrust(setpoint->thrust_left);
+    // motorPower.m4 =  limitThrust(20000);
+  // #else // QUAD_FORMATION_NORMAL
+  //   motorPower.m1 = limitThrust(control->thrust_right);
+  //   motorPower.m2 = limitThrust(0);
+  //   motorPower.m3 =  limitThrust(0);
+  //   motorPower.m4 =  limitThrust(control->thrust_left);
+  // #endif
 
   if (motorSetEnable)
   {

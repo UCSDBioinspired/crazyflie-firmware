@@ -134,7 +134,9 @@ static void stabilizerTask(void* param)
     stateController(&control, &setpoint, &sensorData, &state, tick);
 
     checkEmergencyStopTimeout();
-
+    control.thrust_left = setpoint.thrust_left;
+    control.thrust_right = setpoint.thrust_right;
+    powerDistributionSetpoint(&setpoint);
     if (emergencyStop) {
       powerStop();
     } else {
@@ -223,3 +225,10 @@ LOG_ADD(LOG_FLOAT, x, &state.position.x)
 LOG_ADD(LOG_FLOAT, y, &state.position.y)
 LOG_ADD(LOG_FLOAT, z, &state.position.z)
 LOG_GROUP_STOP(stateEstimate)
+
+// Params for flight modes
+LOG_GROUP_START(setpoint_thrust)
+LOG_ADD(LOG_FLOAT, thrust, &setpoint.thrust)
+LOG_ADD(LOG_FLOAT, thrust_r, &setpoint.thrust_right)
+LOG_ADD(LOG_FLOAT, thrust_l, &setpoint.thrust_right)
+LOG_GROUP_STOP(flightmode)

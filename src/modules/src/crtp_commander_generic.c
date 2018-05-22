@@ -224,6 +224,8 @@ static void cppmEmuDecoder(setpoint_t *setpoint, uint8_t type, const void *data,
 
   setpoint->attitudeRate.yaw = -1 * getChannelUnitMultiplier(values->channelYaw, 1500, 500) * s_CppmEmuYawMaxRateDps; // yaw inverted
   setpoint->thrust = getChannelUnitMultiplier(values->channelThrust, 1000, 1000) * (float)UINT16_MAX; // Thrust is positive only - uses the full 1000-2000 range
+  setpoint->thrust_left = getChannelUnitMultiplier(values->channelThrust, 1000, 1000) * (float)UINT16_MAX;
+  setpoint->thrust_right = getChannelUnitMultiplier(values->channelYaw, 1000, 1000) * (float)UINT16_MAX;
 
   // Make sure thrust isn't negative
   if(setpoint->thrust < 0)

@@ -128,11 +128,29 @@ void crtpCommanderRpytDecodeSetpoint(setpoint_t *setpoint, CRTPPacket *pk)
   }
 
   // Thrust
+  uint16_t rawThrust_left = values->thrust;
   uint16_t rawThrust = values->thrust;
+  float rawThrust_right = values->yaw;
 
+	if (thrustLocked){
+   	setpoint->thrust_left = 0;
+  	setpoint->thrust_right = 0;
+	  }
+  if (rawThrust_left < MIN_THRUST) {
+  	setpoint->thrust_left = 0;
+  } else {
+    setpoint->thrust_left = min(rawThrust_left, MAX_THRUST);
+  }
+  if (rawThrust_right < MIN_THRUST) {
+  	setpoint->thrust_right = 0;
+  } else {
+  	setpoint->thrust_right = min(rawThrust_right, MAX_THRUST);
+  }
+  
   if (thrustLocked || (rawThrust < MIN_THRUST)) {
     setpoint->thrust = 0;
-  } else {
+  } 
+  else {
     setpoint->thrust = min(rawThrust, MAX_THRUST);
   }
 
