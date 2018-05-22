@@ -1,6 +1,6 @@
 # Crazyflie 2.0 Firmware  [![Build Status](https://api.travis-ci.org/bitcraze/crazyflie-firmware.svg)](https://travis-ci.org/bitcraze/crazyflie-firmware)
 
-This project contains the source code for the Crazyflie 2.0 firmware.
+This project contains the source code for the Crazyflie 2.0 firmware. The power distribution has been changed from the default to work with the self-folding robot.
 
 ### Crazyflie 1.0 support
 
