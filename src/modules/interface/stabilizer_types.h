@@ -144,6 +144,8 @@ typedef struct control_s {
   int16_t pitch;
   int16_t yaw;
   float thrust;
+  float thrust_left;
+  float thrust_right;
 } control_t;
 
 typedef enum mode_e {
@@ -159,6 +161,8 @@ typedef struct setpoint_s {
   attitude_t attitudeRate;  // deg/s
   quaternion_t attitudeQuaternion;
   float thrust;
+  float thrust_left;
+  float thrust_right;
   point_t position;         // m
   velocity_t velocity;      // m/s
   acc_t acceleration;       // m/s^2
